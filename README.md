@@ -34,7 +34,7 @@ When a Stripe invoice payment fails, the workflow:
 4. Runs the matching recovery path
 5. Follows up on retryable failures until the invoice is paid or the attempts run out
 6. Escalates to the team before a subscription lapses
-7. Tags the contact in GoHighLevel with the current status
+7. Updates the contact in GoHighLevel with the current status
 
 ---
 
@@ -71,8 +71,8 @@ The invoice event on its own only says that a payment failed. The workflow reads
 
 The customer gets a short notice that the payment will be retried and no action is needed yet. The workflow then waits and checks the invoice status again on day 1, 3 and 7.
 
-* **Invoice paid:** the case is closed and the contact is tagged `payment-recovered`
-* **Still unpaid after 4 attempts:** the team gets an escalation email and the contact is tagged `payment-at-risk`
+* **Invoice paid:** the case is closed with status `recovered`
+* **Still unpaid after 4 attempts:** the team gets an escalation email and the case gets status `at_risk`
 
 ![Retry Notice Email](screenshots/email_retry_notice.png)
 
@@ -80,11 +80,11 @@ The customer gets a short notice that the payment will be retried and no action 
 
 ### Needs Update
 
-The customer is asked to update their payment method. Retrying an expired card would only fail again. Tag: `payment-needs-update`.
+The customer is asked to update their payment method. Retrying an expired card would only fail again. Status: `needs_payment_update`.
 
 ### Needs Review
 
-Stolen, lost or blocked cards go straight to a person. An automated retry here is the wrong move. Tag: `payment-needs-review`.
+Stolen, lost or blocked cards go straight to a person. An automated retry here is the wrong move. Status: `needs_manual_review`.
 
 ### Unknown
 
@@ -94,7 +94,9 @@ If the reason is not recognized, the workflow does not guess. The team gets an a
 
 ## CRM Integration
 
-Every outcome is sent to a GoHighLevel inbound webhook with a status and a tag. The GoHighLevel workflow finds the contact by email (or creates it), applies the tag and notifies the team when a payment needs attention. The team sees the state of every failed payment without opening Stripe.
+Every classified outcome (recovered, at risk, needs update, needs review) is sent to a GoHighLevel inbound webhook with its status. Unknown failures go to the team by email only.
+
+The GoHighLevel workflow finds the contact by email (or creates it), tags it `payment-recovered` or `payment-issue`, and notifies the team when a payment needs attention. The team sees the state of every failed payment without opening Stripe.
 
 ![GoHighLevel Workflow](screenshots/ghl_workflow.png)
 
@@ -140,7 +142,7 @@ All sample files use fake data.
 * **One case per invoice.** Stripe's own retries do not restart the process or duplicate emails.
 * **Check the invoice, not assumptions.** Recovery is confirmed only when Stripe reports the invoice as paid.
 * **Humans where it matters.** Risky and unclear cases go to a person instead of an automated retry.
-* **CRM as the single view.** Every outcome ends as a tag the team can filter and act on.
+* **CRM as the single view.** Every outcome ends up on the contact, where the team can filter and act on it.
 
 ---
 
