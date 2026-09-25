@@ -1,0 +1,13 @@
+{
+  "customerId": "cus_Xyz987Uvw654",
+  "customerEmail": "jane.doe@example.com",
+  "customerName": "Jane Doe",
+  "invoiceId": "in_1Abc234DefGhi567",
+  "chargeId": "ch_3Jkl890Mno123",
+  "attemptCount": 1,
+  "amountDue": 4900,
+  "currency": "usd",
+  "failureCode": "insufficient_funds",
+  "failureCategory": "retryable",
+  "maxAttempts": 4
+}

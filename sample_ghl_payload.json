@@ -1,0 +1,13 @@
+{
+  "customerId": "cus_Xyz987Uvw654",
+  "customerEmail": "jane.doe@example.com",
+  "customerName": "Jane Doe",
+  "invoiceId": "in_1Abc234DefGhi567",
+  "subscriptionId": "sub_4Pqr567Stu890",
+  "amountDue": 4900,
+  "currency": "usd",
+  "attemptCount": 4,
+  "failureCode": "insufficient_funds",
+  "status": "at_risk",
+  "tag": "payment-at-risk"
+}

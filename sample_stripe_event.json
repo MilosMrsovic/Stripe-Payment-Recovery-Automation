@@ -1,0 +1,16 @@
+{
+  "type": "invoice.payment_failed",
+  "data": {
+    "object": {
+      "id": "in_1Abc234DefGhi567",
+      "object": "invoice",
+      "customer": "cus_Xyz987Uvw654",
+      "customer_email": "jane.doe@example.com",
+      "customer_name": "Jane Doe",
+      "attempt_count": 1,
+      "amount_due": 4900,
+      "currency": "usd",
+      "status": "open"
+    }
+  }
+}
