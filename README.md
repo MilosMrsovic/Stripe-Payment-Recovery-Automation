@@ -1,5 +1,7 @@
 # Stripe Payment Recovery Automation
 
+Built by [Heaq Digital](https://heaqdigital.com), an automation studio for US service businesses. Full write-up: Stripe dunning automation https://heaqdigital.com/failed-payment-recovery-automation
+
 An n8n workflow that recovers failed Stripe payments by first finding out **why** a payment failed, then sending each case down the right recovery path: automatic retry follow-up, card update request, or human review. Every outcome is synced to GoHighLevel.
 
 > **Not every failed payment is the same. The reason decides what happens next.**
